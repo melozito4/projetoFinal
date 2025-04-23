@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conference Hub</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="index.js"></script>
 </head>
 <body>
 
@@ -21,10 +22,11 @@
       <a href="#" class="no-arrow">COMMITTEES</a>
       <a href="#" class="no-arrow">SUBMISSION</a>
       <a href="#" class="no-arrow">REGISTRATION</a>
-      <a href="#" class="no-arrow">VENUE</a>
+      <a href="#venue" class="no-arrow">VENUE</a>
       <a href="#" class="no-arrow">SPONSORS</a>
       <a href="#" class="no-arrow">CONTACT</a>
     </div>
+    
 
     <div class="button-group">
       <button class="action-btn login-btn">Login</button>
@@ -34,8 +36,7 @@
 
   <!-- Background image section -->
   <div class="hero-section">
-    <!-- Se quiseres remover a overlay, tira esta div -->
-    <!-- <div class="overlay"></div> -->
+    
   </div>
 
   <!-- Welcome & Scope section -->
@@ -49,6 +50,22 @@
       <p>Aliquam erat volutpat. Suspendisse potenti. Fusce ut semper sapien. Duis volutpat viverra mauris, ut feugiat orci fringilla sit amet. Integer sit amet eros finibus, tincidunt lorem a, tincidunt velit. Donec rutrum risus a nulla bibendum feugiat.</p>
     </div>
   </section>
+
+  <!-- Linha divisória -->
+<hr class="section-divider" />
+
+<!-- Venue section -->
+<section id="venue" class="venue-section">
+  <h2>VENUE</h2>
+  <p class="venue-description">
+    The conference will be held at Main Building (10, 11, 13), Auditorium (17), and Event Room (18) of ENIDH, Oeiras, Lisboa, Portugal.<br>
+    Address: Av. Eng. Bonneville Franco, Oeiras, Lisboa, Portugal
+  </p>
+  <div class="venue-image-container">
+    <img src="imagens/venue.png" alt="Venue Image" />
+  </div>
+</section>
+
 
   <!-- Footer -->
 <footer class="site-footer">
@@ -67,15 +84,14 @@
     <a href="#">Committees</a>
     <a href="#">Submission</a>
     <a href="#">Registration</a>
-    <a href="#">Venue</a>
+    <a href="#venue" class="no-arrow">Venue</a>
   </div>
 
   <div class="footer-right">
     <img src="imagens/facebook.png" alt="Facebook" />
-    <img src="imagens/instagram.png" alt="Instagram" />
+    <img id="instagram-icon" src="imagens/instagram.png" alt="Instagram" />
     <img src="imagens/x.png" alt="X" />
-    <img src="imagens/linkedin.png" alt="LinkedIn" />
-    <img src="imagens/youtube.png" alt="YouTube" />
+    <img id= "youtube-icon" src="imagens/youtube.png" alt="YouTube" />
   </div>
 </footer>
 
