@@ -121,7 +121,7 @@
     display: flex;
     justify-content: space-around;
     padding: 60px 40px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     gap: 40px;
     flex-wrap: wrap;
   }
@@ -151,7 +151,7 @@
   /* FOOTER */
   .site-footer {
     background-color: #000;
-    color: #fff;
+    color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -203,7 +203,7 @@
     height: 30px;
     width: 30px;
     cursor: pointer;
-    object-fit: contain; /* ou 'cover', consoante o efeito que queres */
+    object-fit: contain; 
   }
   
 /* VENUE SECTION */
@@ -242,9 +242,92 @@
   height: 1px;
   background-color: #ccc;
   width: 100%;
- 
 }
 
+/*Media partner*/
+.section-title {
+  text-align: left;
+  margin-left: 120px; 
+}
+.left-image {
+  display: block;
+  margin-left: 120px; 
+  max-width: 80%;
+  height: auto;
+}
+
+.smooth-border {
+  border-radius: 12px; /* Cantos arredondados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+}
+
+.center-image {
+  display: block;
+  margin: 20px auto;
+  max-width: 13%;
+  height: auto;
+}
+
+/* para o "rato" aparecer a "maozinha"  */
+#clickable-image {
+  cursor: pointer;
+}
+
+#clickable-image-enidh {
+  cursor: pointer;
+}
+
+#clickable-image-oeirasvalley {
+  cursor: pointer;
+}
+
+/*PROGRAMME*/
+.speakers-section {
+  background-color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.speaker-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: inline-block;
+  width: 180px;
+  margin: 20px;
+  transition: transform 0.3s ease;
+}
+
+.speaker-card:hover {
+  transform: translateY(-5px);
+}
+
+.speaker-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.speaker-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  margin: 10px 0 5px;
+}
+
+.speaker-info {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+}
+
+.white-background {
+  background-color: white;
+  padding: 40px 0;
+}
 
   @media (max-width: 768px) {
     .site-footer {
