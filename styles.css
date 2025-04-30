@@ -1,211 +1,211 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fc;
-  }
-  
-  /* NAVBAR */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    background-color: #f5f6fa;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  /* LOGO */
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .logo img {
-    height: 30px;
-    width: 30px;
-  }
-  
-  .logo span {
-    font-size: 18px;
-    font-weight: 600;
-    color: #000;
-  }
-  
-  /* NAVIGATION LINKS */
-  .nav-links {
-    display: flex;
-    gap: 30px;
-    align-items: center;
-    font-size: 14px;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #222;
-    position: relative;
-  }
-  
-  .nav-links a::after {
-    content: "▼";
-    font-size: 10px;
-    margin-left: 5px;
-    display: inline-block;
-  }
-  
-  .nav-links a.no-arrow::after {
-    content: none;
-  }
-  
-  /* BUTTONS */
-  .button-group {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .action-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  /* Login = preto */
-  .login-btn {
-    background-color: #000;
-    color: white;
-  }
-  
-  .login-btn:hover {
-    background-color: #333;
-  }
-  
-  /* Start Now = laranja */
-  .start-btn {
-    background-color: #ff4500;
-    color: white;
-  }
-  
-  .start-btn:hover {
-    background-color: #e03e00;
-  }
-  
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-    }
-  }
-  
-  /* HERO SECTION */
-  .hero-section {
-    position: relative;
-    height: 80vh;
-    background-image: url('imagens/backgroun2.png'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 0;
-  }
-  
-  /* WELCOME & SCOPE */
-  .info-section {
-    display: flex;
-    justify-content: space-around;
-    padding: 60px 40px;
-    background-color: rgb(255, 255, 255);
-    gap: 40px;
-    flex-wrap: wrap;
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  html {
-    scroll-behavior: smooth;
-  }  
-  
-  .info-block {
-    flex: 1;
-    min-width: 300px;
-    max-width: 600px;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fc;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #f5f6fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  height: 30px;
+  width: 30px;
+}
+
+.logo span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+
+/* NAVIGATION LINKS */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #222;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "▼";
+  font-size: 10px;
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.nav-links a.no-arrow::after {
+  content: none;
+}
+
+/* BUTTONS */
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Login = preto */
+.login-btn {
+  background-color: #000;
+  color: white;
+}
+
+.login-btn:hover {
+  background-color: #333;
+}
+
+/* Start Now = laranja */
+.start-btn {
+  background-color: #ff4500;
+  color: white;
+}
+
+.start-btn:hover {
+  background-color: #e03e00;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
   }
-  
-  .info-block h2 {
-    font-size: 24px;
-    color: #050505;
-    margin-bottom: 20px;
-  }
-  
-  .info-block p {
-    font-size: 16px;
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  /* FOOTER */
-  .site-footer {
-    background-color: #000;
-    color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px 60px;
-    flex-wrap: wrap;
-  }
-  
-  .footer-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .footer-logo {
-    height: 40px;
-    width: 40px;
-  }
-  
-  .footer-title span {
-    display: block;
-    font-size: 18px;
-    font-weight: 500;
-  }
-  
-  .footer-center {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-size: 14px;
-  }
-  
-  .footer-center a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .footer-center a:hover {
-    text-decoration: underline;
-  }
-  
-  .footer-right {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-  }
-  
-  .footer-right img {
-    height: 30px;
-    width: 30px;
-    cursor: pointer;
-    object-fit: contain; 
-  }
-  
+}
+
+/* HERO SECTION */
+.hero-section {
+  position: relative;
+  height: 80vh;
+  background-image: url('imagens/backgroun2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* WELCOME & SCOPE */
+.info-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 40px;
+  background-color: rgb(255, 255, 255);
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.info-block {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+.info-block h2 {
+  font-size: 24px;
+  color: #050505;
+  margin-bottom: 20px;
+}
+
+.info-block p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* FOOTER */
+.site-footer {
+  background-color: #000;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 60px;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-logo {
+  height: 40px;
+  width: 40px;
+}
+
+.footer-title span {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.footer-center {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.footer-center a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-center a:hover {
+  text-decoration: underline;
+}
+
+.footer-right {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.footer-right img {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  object-fit: contain;
+}
+
 /* VENUE SECTION */
 .venue-section {
   background-color: white;
@@ -247,18 +247,20 @@
 /*Media partner*/
 .section-title {
   text-align: left;
-  margin-left: 120px; 
+  margin-left: 120px;
 }
+
 .left-image {
   display: block;
-  margin-left: 120px; 
+  margin-left: 120px;
   max-width: 80%;
   height: auto;
 }
 
 .smooth-border {
-  border-radius: 12px; /* Cantos arredondados */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+  border-radius: 12px;
+  /* Cantos arredondados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .center-image {
@@ -267,6 +269,30 @@
   max-width: 13%;
   height: auto;
 }
+
+.section-title-center {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #1a1a1a; /* tom escuro neutro, pode ajustar conforme o tema */
+}
+.committee-list li {
+  margin-bottom: 8px;
+  color: #1a1a1a;
+  font-size: 1rem;
+}
+
+.section-title-center {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+
 
 /* para o "rato" aparecer a "maozinha"  */
 #clickable-image {
@@ -329,21 +355,20 @@
   padding: 40px 0;
 }
 
-  @media (max-width: 768px) {
-    .site-footer {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  
-    .footer-left,
-    .footer-center,
-    .footer-right {
-      margin: 15px 0;
-    }
-  
-    .footer-title span {
-      font-size: 14px;
-    }
+@media (max-width: 768px) {
+  .site-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    margin: 15px 0;
+  }
+
+  .footer-title span {
+    font-size: 14px;
+  }
+}
