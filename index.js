@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const instagramIcon = document.getElementById("instagram-icon");
   if (instagramIcon) {
     instagramIcon.addEventListener("click", function () {
-      window.open("https://www.instagram.com/conference_site/", "_blank");
+      window.open("https://www.instagram.com/enauticaa/", "_blank");
     });
   }
 });
@@ -12,6 +12,15 @@ document.addEventListener("DOMContentLoaded", function () {
   if (youtubeIcon) {
     youtubeIcon.addEventListener("click", function () {
       window.open("https://www.youtube.com/watch?v=NU9L8hacRak&ab_channel=OeirasValley", "_blank");
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const facebookIcon = document.getElementById("facebook-icon");
+  if (facebookIcon) {
+    facebookIcon.addEventListener("click", function () {
+      window.open("https://www.facebook.com/enautica/?locale=pt_PT", "_blank");
     });
   }
 });
@@ -46,3 +55,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+document.getElementById("download-template").addEventListener("click", function () {
+  const link = document.createElement("a");
+  link.href = "imagens/long_abstract_template.docx"; 
+  link.download = "long_abstract_template.docx";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+});

@@ -1,12 +1,18 @@
-* {
+/* RESET E CONFIGURAÇÕES GERAIS */
+* { 
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
 /* NAVBAR */
@@ -23,8 +29,9 @@ body {
   background-color: #f5f6fa;
   border-bottom: 1px solid #e0e0e0;
 }
+
 .hero-section {
-  padding-top: 80px; /* Adjust based on the height of your navbar */
+  padding-top: 80px; /* altura da navbar */
 }
 
 /* LOGO */
@@ -70,7 +77,7 @@ body {
   content: none;
 }
 
-/* BUTTONS */
+/* BOTÕES */
 .button-group {
   display: flex;
   gap: 10px;
@@ -86,7 +93,6 @@ body {
   transition: background 0.3s;
 }
 
-/* Login = preto */
 .login-btn {
   background-color: #000;
   color: white;
@@ -96,20 +102,35 @@ body {
   background-color: #333;
 }
 
-/* Start Now = laranja */
 .start-btn {
-  background-color: #ff4500;
+  background-color: #000;
   color: white;
 }
 
 .start-btn:hover {
-  background-color: #e03e00;
+  background-color: #333;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVO */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    margin: 15px 0;
+  }
+
+  .footer-title span {
+    font-size: 14px;
   }
 }
 
@@ -124,18 +145,14 @@ body {
   z-index: 0;
 }
 
-/* WELCOME & SCOPE */
+/* INFO SECTION */
 .info-section {
   display: flex;
   justify-content: space-around;
   padding: 60px 40px;
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   gap: 40px;
   flex-wrap: wrap;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 .info-block {
@@ -237,7 +254,6 @@ html {
   margin-right: auto;
 }
 
-
 .venue-image-container img {
   max-width: 60%;
   height: auto;
@@ -252,7 +268,8 @@ html {
   width: 100%;
 }
 
-.section-title {
+.section-title,
+.section-title-center {
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
@@ -261,6 +278,7 @@ html {
   color: #1a1a1a;
 }
 
+/* IMAGENS */
 .left-image {
   display: block;
   margin-left: 44%;
@@ -270,7 +288,6 @@ html {
 
 .smooth-border {
   border-radius: 12px;
-  /* Cantos arredondados */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -281,44 +298,18 @@ html {
   height: auto;
 }
 
-.section-title-center {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  color: #1a1a1a; /* tom escuro neutro, pode ajustar conforme o tema */
+.clickable-image {
+  cursor: pointer;
 }
+
+/* COMITÊ */
 .committee-list li {
   margin-bottom: 8px;
   color: #1a1a1a;
   font-size: 1rem;
 }
 
-.section-title-center {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  color: #1a1a1a;
-}
-
-
-/* para o "rato" aparecer a "maozinha"  */
-#clickable-image {
-  cursor: pointer;
-}
-
-#clickable-image-enidh {
-  cursor: pointer;
-}
-
-#clickable-image-oeirasvalley {
-  cursor: pointer;
-}
-
-/*PROGRAMME*/
+/* SPEAKERS */
 .speakers-section {
   background-color: white;
   padding: 60px 20px;
@@ -365,6 +356,8 @@ html {
   background-color: white;
   padding: 40px 0;
 }
+
+/* INFO DATES */
 .info-dates-section {
   background-color: #ffffff;
   padding: 60px 20px;
@@ -445,15 +438,7 @@ html {
   font-weight: 600;
 }
 
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
+/* PUBLICAÇÕES */
 .publication-container {
   max-width: 1000px;
   margin: 50px auto;
@@ -539,74 +524,19 @@ body {
   text-decoration: underline;
 }
 
-
+/* REGISTRATION & FEES */
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 40px;
-  max-width: 1100px; 
-  margin: 0 auto;     /* centraliza horizontalmente */
-  padding: 40px 20px; /* espaço interno nas laterais */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
 .registration, .fees {
   flex: 1 1 500px;
-}
-
-h2 {
-  color: #000000;
-  margin-bottom: 10px;
-}
-
-ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-ul li::before {
-  content: "› ";
-  color: #000000;
-  font-weight: bold;
-}
-
-.note {
-  margin-top: 20px;
-  font-size: 0.95em;
-  color: #666;
-}
-
-.register-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #000000;
-  border: none;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 12px;
-  text-align: center;
-}
-
-table th {
-  background-color: #f2f2f2;
-}
-
-table td small {
-  display: block;
-  font-size: 0.85em;
-  color: #777;
 }
 
 .registration {
@@ -648,6 +578,30 @@ table td small {
   background-color: #000000;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: inherit;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: center;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+table td small {
+  display: block;
+  font-size: 0.85em;
+  color: #777;
+}
+
+/* IMAGEM ENIDH */
 .imagem-enidh img {
   width: 100%;
   max-width: 1000px;
@@ -658,30 +612,13 @@ table td small {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 768px) {
-  .site-footer {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer-left,
-  .footer-center,
-  .footer-right {
-    margin: 15px 0;
-  }
-
-  .footer-title span {
-    font-size: 14px;
-  }
-}
-
+/* PROGRAMME TABLE */
 .programme-table {
   width: 90%;
   max-width: 900px;
   margin: 30px auto;
   border-collapse: collapse;
-  background-color: transparent; /* mantém o fundo igual ao site */
+  background-color: transparent;
   font-size: 16px;
   text-align: center;
 }
@@ -693,7 +630,6 @@ table td small {
 }
 
 .programme-table th {
-  background-color: #eaeaea; /* cor suave para cabeçalho */
+  background-color: #eaeaea;
   font-weight: bold;
-  text-align: center;
 }
