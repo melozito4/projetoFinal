@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar Sessão</title>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Iniciar Sessão</h2>
+    <form action="/login/" method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="login-btn">Entrar</button>
+    </form>
+    <div class="register-link">
+      Ainda não tens conta? <a href="/register/">Regista-te aqui</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registar</title>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Criar Conta</h2>
+    <form action="/register/" method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="register-btn">Registar</button>
+    </form>
+    <div class="login-link">
+      Já tens conta? <a href="/login/">Inicia sessão</a>
+    </div>
+  </div>
+</body>
+</html>
