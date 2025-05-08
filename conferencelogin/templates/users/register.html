@@ -4,18 +4,149 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Registar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .register-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .register-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #2c3e50;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .form-group input:focus {
+      border-color: #2c3e50;
+      outline: none;
+    }
+
+    .register-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .register-btn:hover {
+      background-color: #1a2533;
+    }
+
+    .login-link {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .login-link a {
+      color: #2c3e50;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error-messages {
+      color: red;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
+
   <div class="register-container">
     <h2>Criar Conta</h2>
-    <form action="/register/" method="POST">
+
+    <form method="POST" action="/register/">
       {% csrf_token %}
-      {{ form.as_p }}
+
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Nome de Utilizador</label>
+        {{ form.username }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.email.id_for_label }}">E-mail</label>
+        {{ form.email }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.password1.id_for_label }}">Palavra-passe</label>
+        {{ form.password1 }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.password2.id_for_label }}">Confirmar Palavra-passe</label>
+        {{ form.password2 }}
+      </div>
+
       <button type="submit" class="register-btn">Registar</button>
     </form>
+
+    {% if form.errors %}
+      <div class="error-messages">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
     <div class="login-link">
       Já tens conta? <a href="/login/">Inicia sessão</a>
     </div>
   </div>
+
 </body>
 </html>
