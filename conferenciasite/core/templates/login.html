@@ -134,14 +134,6 @@
   <div class="login-container">
     <h2>Iniciar Sessão</h2>
 
-    {% if messages %}
-      <div class="messages">
-        {% for message in messages %}
-          <p class="{{ message.tags }}">{{ message }}</p>
-        {% endfor %}
-      </div>
-    {% endif %}
-
     <form method="POST" action="{% url 'login' %}">
       {% csrf_token %}
 

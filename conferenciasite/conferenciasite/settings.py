@@ -82,3 +82,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # settings.py
 STRIPE_PUBLIC_KEY = 'pk_test_51RWQXVQ6vssMfQWBXRtHOk5qZGooXWHRwHfw3Ocm5NRx99TJn65crNoxbZIBcOrOBLtxP6GJmyCwKIe4u3UPrnKO00C5rtilC7'
 STRIPE_SECRET_KEY = 'sk_test_51RWQXVQ6vssMfQWB30JocarmzFdl125nte0sEgfGwdE1QHojXWzMkxtTPbxZO4eJgBPyJJv4BnatHiYoJvUA247X00HGwUWPVD'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # ou outro serviço
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'conference.site2025@gmail.com'
+EMAIL_HOST_PASSWORD = 'gqjgtuhktkwvsjhl'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

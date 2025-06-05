@@ -5,16 +5,32 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from .models import SubmissaoResumo, InscricaoEvento
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from .utils import gerar_fatura_pdf
 import stripe
+from .forms import ReviewForm
+from .models import Review
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def index_view(request):
-    return render(request, 'index.html')
+    inscrito = False
+    limite_atingido = False
+    total = InscricaoEvento.objects.count()
+
+    if total >= 100:
+        limite_atingido = True
+
+    if request.user.is_authenticated:
+        inscrito = InscricaoEvento.objects.filter(user=request.user).exists()
+
+    return render(request, 'index.html', {
+        'inscrito': inscrito,
+        'limite_atingido': limite_atingido
+    })
 
 def login_view(request):
     if request.method == 'POST':
@@ -70,16 +86,19 @@ def submit_abstract(request):
     return render(request, 'abstract_submission.html')
 
 def is_avaliador(user):
-    return user.is_authenticated and user.profile.tipo_utilizador == "Avaliador"
+    return user.is_authenticated and user.profile.tipo_utilizador in ["Avaliador", "Organizador"]
 
+@login_required
 @user_passes_test(is_avaliador)
 def ver_submissoes(request):
     resumos = SubmissaoResumo.objects.all().order_by('-data_submissao')
     return render(request, 'review.html', {'resumos': resumos})
 
+@login_required
 def evento_registo_view(request):
     return render(request, 'event_reg.html')
 
+@login_required
 @user_passes_test(is_avaliador)
 def ver_resumo(request, resumo_id):
     resumo = get_object_or_404(SubmissaoResumo, pk=resumo_id)
@@ -90,6 +109,11 @@ def ver_resumo(request, resumo_id):
 def checkout(request):
     if InscricaoEvento.objects.filter(user=request.user).exists():
         messages.error(request, 'Já estás inscrito no evento.')
+        return redirect('evento_registo')
+
+    total_inscritos = InscricaoEvento.objects.count()
+    if total_inscritos >= 100:
+        messages.error(request, 'As inscrições estão encerradas. O limite de vagas foi atingido.')
         return redirect('evento_registo')
 
     if request.method == 'POST':
@@ -122,11 +146,12 @@ def checkout(request):
         )
         return redirect(session.url, code=303)
 
+@login_required
 def pagamento_sucesso(request):
     evento_data = request.session.pop('evento_data', None)
 
     if evento_data and not InscricaoEvento.objects.filter(user=request.user).exists():
-        InscricaoEvento.objects.create(
+        inscricao = InscricaoEvento.objects.create(
             user=request.user,
             nome=evento_data['nome'],
             email=evento_data['email'],
@@ -138,12 +163,43 @@ def pagamento_sucesso(request):
             morada=evento_data['morada'],
         )
 
-        send_mail(
+        pdf_buffer = gerar_fatura_pdf(inscricao)
+
+        email = EmailMessage(
             subject='Confirmação de Inscrição - Conference Hub',
-            message='Obrigado pela sua inscrição no evento! O pagamento foi recebido com sucesso.',
+            body='Obrigado pela sua inscrição no evento. Em anexo segue a fatura.',
             from_email='conference@example.com',
-            recipient_list=[evento_data['email']],
-            fail_silently=False,
+            to=[evento_data['email']],
         )
+        email.attach('fatura_conferencia.pdf', pdf_buffer.getvalue(), 'application/pdf')
+        email.send()
 
     return render(request, 'sucesso.html')
+
+
+@login_required
+@user_passes_test(is_avaliador)
+def ver_resumo(request, resumo_id):
+    resumo = get_object_or_404(SubmissaoResumo, pk=resumo_id)
+    review_existente = Review.objects.filter(resumo=resumo, avaliador=request.user).first()
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review_existente)
+        if form.is_valid():
+            nova_review = form.save(commit=False)
+            nova_review.resumo = resumo
+            nova_review.avaliador = request.user
+            nova_review.save()
+            messages.success(request, 'Avaliação submetida com sucesso.')
+            return redirect('ver_resumo', resumo_id=resumo.id)
+    else:
+        form = ReviewForm(instance=review_existente)
+
+    todas_reviews = Review.objects.filter(resumo=resumo)
+
+    return render(request, 'ver_resumo.html', {
+        'resumo': resumo,
+        'form': form,
+        'todas_reviews': todas_reviews,
+        'review_existente': review_existente,
+    })

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Detalhes do Resumo</title>
   <style>
     * {
@@ -11,8 +11,8 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #ffffff;
-      color: #333;
+      background-color: #f4f5f7;
+      color: #222;
       margin: 20px 12px;
     }
 
@@ -26,83 +26,261 @@
     }
 
     .top-left-logo img {
-      height: 24px;
-      margin-right: 6px;
+      height: 28px;
+      margin-right: 8px;
     }
 
     .top-left-logo span {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 70px auto 30px auto;
+      padding: 30px 40px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+      color: #000;
+      margin-bottom: 24px;
+      font-weight: 700;
+      font-size: 24px;
+      border-bottom: 2px solid #000;
+      padding-bottom: 8px;
+    }
+
+    p, label {
       font-size: 15px;
-      font-weight: 600;
-      color: black;
-    }
-
-    .resumo-detalhes {
-      max-width: 600px;
-      margin: 60px auto 30px auto;
-      padding: 18px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background-color: #f9f9f9;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
-    }
-
-    .resumo-detalhes h2 {
-      color: #004c8c;
-      font-size: 20px;
-      margin-bottom: 14px;
-    }
-
-    .resumo-detalhes p {
-      margin: 8px 0;
-      font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.6;
+      color: #444;
     }
 
     .pdf-link {
       display: inline-block;
-      margin-top: 8px;
-      background-color: #004c8c;
+      margin: 12px 0 28px 0;
+      background-color: #000;
       color: #fff;
-      padding: 6px 12px;
-      border-radius: 4px;
+      padding: 8px 18px;
+      border-radius: 6px;
       text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      transition: background-color 0.2s ease-in-out;
+      font-weight: 600;
+      transition: background-color 0.3s ease-in-out;
+      font-size: 14px;
     }
 
     .pdf-link:hover {
-      background-color: #00325f;
+      background-color: #222;
     }
 
     .back-link {
       display: inline-block;
-      margin-top: 24px;
+      margin-top: 28px;
       font-size: 14px;
-      color: #004c8c;
+      color: #000;
       text-decoration: none;
+      font-weight: 600;
     }
 
     .back-link:hover {
       text-decoration: underline;
+    }
+
+    form > div {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    input[type=number] {
+      width: 70px;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type=number]:focus {
+      border-color: #000;
+      outline: none;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+
+    textarea:focus {
+      border-color: #000;
+      outline: none;
+    }
+
+    select {
+      padding: 8px 12px;
+      font-size: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+
+    select:focus {
+      border-color: #000;
+      outline: none;
+    }
+
+    button {
+      background-color: #000;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin-top: 12px;
+    }
+
+    button:hover {
+      background-color: #222;
+    }
+
+    .avaliacoes-list {
+      margin-top: 40px;
+    }
+
+    .avaliacao-item {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      background-color: #fff;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+
+    .avaliacao-header {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #000;
+      font-size: 17px;
+    }
+
+    .avaliacao-meta {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 14px;
+    }
+
+    .avaliacao-comentario {
+      font-size: 15px;
+      color: #333;
+      white-space: pre-line;
     }
   </style>
 </head>
 <body>
 
   <a href="/" class="top-left-logo">
-    <img src="{% static 'img/logo.png' %}" alt="Logo Conference Hub">
+    <img src="{% static 'img/logo.png' %}" alt="Logo Conference Hub" />
     <span>Conference Hub</span>
   </a>
 
-  <div class="resumo-detalhes">
+  <div class="container">
     <h2>{{ resumo.titulo }}</h2>
     <p><strong>Autor:</strong> {{ resumo.autor.username }}</p>
-    <p><strong>Data de Submissão:</strong> {{ resumo.data_submissao }}</p>
+    <p><strong>Data de Submissão:</strong> {{ resumo.data_submissao|date:"d/m/Y H:i" }}</p>
     <p><strong>Conteúdo:</strong></p>
     <p>{{ resumo.conteudo }}</p>
 
     <p><strong>PDF:</strong> <a href="{{ resumo.pdf_file.url }}" class="pdf-link" target="_blank">📄 Ver PDF</a></p>
+
+    <hr />
+
+    <h2>Avaliar Resumo</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div>
+        <label for="{{ form.originalidade.id_for_label }}">Originalidade (1-10):</label>
+        {{ form.originalidade }}
+        {{ form.originalidade.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.qualidade.id_for_label }}">Qualidade (1-10):</label>
+        {{ form.qualidade }}
+        {{ form.qualidade.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.relevancia.id_for_label }}">Relevância (1-10):</label>
+        {{ form.relevancia }}
+        {{ form.relevancia.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.clareza.id_for_label }}">Clareza (1-10):</label>
+        {{ form.clareza }}
+        {{ form.clareza.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.comentario.id_for_label }}">Comentário:</label>
+        {{ form.comentario }}
+        {{ form.comentario.errors }}
+      </div>
+
+      <div>
+        <label for="{{ form.decisao.id_for_label }}">Decisão:</label>
+        {{ form.decisao }}
+        {{ form.decisao.errors }}
+      </div>
+
+      <button type="submit">Submeter Avaliação</button>
+    </form>
+
+    <div class="avaliacoes-list">
+  <h2>Avaliações Anteriores</h2>
+  {% if todas_reviews %}
+    {% for review in todas_reviews %}
+      <div class="avaliacao-item">
+        <div class="avaliacao-header">Avaliado por: {{ review.avaliador.username }}</div>
+        <div class="avaliacao-meta">
+          Decisão: <strong>{{ review.get_decisao_display }}</strong> |
+          Originalidade: <strong>{{ review.originalidade }}</strong> |
+          Qualidade: <strong>{{ review.qualidade }}</strong> |
+          Relevância: <strong>{{ review.relevancia }}</strong> |
+          Clareza: <strong>{{ review.clareza }}</strong> |
+          Média das notas: <strong>{{ review.media }}</strong> |
+          Data: {{ review.data_avaliacao|date:"d/m/Y H:i" }}
+        </div>
+        <div class="avaliacao-comentario">
+          {{ review.comentario|linebreaks }}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>Sem avaliações ainda.</p>
+  {% endif %}
+</div>
+
 
     <a href="{% url 'ver_submissoes' %}" class="back-link">← Voltar à lista de resumos</a>
   </div>

@@ -29,9 +29,12 @@
       <a href="#registration" class="no-arrow">REGISTRATION</a>
       <a href="#venue" class="no-arrow">VENUE</a>
       <a href="#contact" class="no-arrow">CONTACT</a>
-      {% if user.is_authenticated and user.profile.tipo_utilizador == "Avaliador" %}
-  <a href="{% url 'ver_submissoes' %}" class="no-arrow">REVIEW</a>
+      {% if user.is_authenticated %}
+  {% if user.profile.tipo_utilizador == "Avaliador" or user.profile.tipo_utilizador == "Organizador" %}
+    <a href="{% url 'ver_submissoes' %}" class="no-arrow">REVIEW</a>
+  {% endif %}
 {% endif %}
+
     </div>
 
     <div class="button-group">
@@ -480,10 +483,17 @@
           to take any responsibility, whatsoever, for injury or damage to people or property during the meeting.
         </p>
         {% if user.is_authenticated %}
-  <a href="{% url 'evento_registo' %}" class="register-btn">EVENT REGISTRATION</a>
+  {% if inscrito %}
+    <a href="javascript:void(0);" class="register-btn" onclick="showInscritoAlert()">EVENT REGISTRATION</a>
+  {% elif limite_atingido %}
+    <a href="javascript:void(0);" class="register-btn" onclick="showLimiteAlert()">EVENT REGISTRATION</a>
+  {% else %}
+    <a href="{% url 'evento_registo' %}" class="register-btn">EVENT REGISTRATION</a>
+  {% endif %}
 {% else %}
-  <a href="#" class="register-btn" onclick="showLoginAlert(event)">EVENT REGISTRATION</a>
+  <a href="javascript:void(0);" class="register-btn" onclick="showLoginAlert()">EVENT REGISTRATION</a>
 {% endif %}
+
 
       </section>
 
@@ -575,9 +585,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-  function showLoginAlert(event) {
-    event.preventDefault();  // Impede o scroll para o topo
-
+  function showLoginAlert() {
     Swal.fire({
       icon: 'error',
       title: 'Login necessário',
@@ -589,6 +597,27 @@
       if (result.isConfirmed) {
         window.location.href = "{% url 'login' %}";
       }
+    });
+  }
+
+  function showInscritoAlert() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Já estás inscrito!',
+      text: 'Já efetuaste a inscrição neste evento.',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#000'
+    });
+  }
+</script>
+<script>
+  function showLimiteAlert() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Limite atingido',
+      text: 'As inscrições estão encerradas. O número máximo de participantes foi atingido.',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#000'
     });
   }
 </script>
