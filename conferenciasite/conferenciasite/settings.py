@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -64,11 +65,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'core' / 'static',
-]
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [ BASE_DIR / "core" / "static" ]
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -77,3 +75,10 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 LOGIN_URL = 'login'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# settings.py
+STRIPE_PUBLIC_KEY = 'pk_test_51RWQXVQ6vssMfQWBXRtHOk5qZGooXWHRwHfw3Ocm5NRx99TJn65crNoxbZIBcOrOBLtxP6GJmyCwKIe4u3UPrnKO00C5rtilC7'
+STRIPE_SECRET_KEY = 'sk_test_51RWQXVQ6vssMfQWB30JocarmzFdl125nte0sEgfGwdE1QHojXWzMkxtTPbxZO4eJgBPyJJv4BnatHiYoJvUA247X00HGwUWPVD'

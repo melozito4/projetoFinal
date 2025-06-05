@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Página de Review</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    .top-left-logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .top-left-logo img {
+      height: 28px;
+      margin-right: 8px;
+    }
+
+    .top-left-logo span {
+      font-size: 16px;
+      font-weight: 600;
+      color: black;
+    }
+
+    h1 {
+      text-align: center;
+      color: #003366;
+      font-size: 28px;
+      margin-bottom: 40px;
+    }
+
+    .resumos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .resumo-card {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .resumo-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .resumo-card h2 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #2c3e50;
+    }
+
+    .resumo-card p {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+
+    .action-links {
+      margin-top: 12px;
+    }
+
+    .pdf-link,
+    .details-link {
+      display: inline-block;
+      padding: 6px 12px;
+      margin-right: 10px;
+      font-size: 13px;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .pdf-link {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .details-link {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .pdf-link:hover {
+      background-color: #0069d9;
+    }
+
+    .details-link:hover {
+      background-color: #218838;
+    }
+
+    .no-resumos {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .resumos-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="top-left-logo">
+    <img src="{% static 'img/logo.png' %}" alt="Logo Conference Hub">
+    <span>Conference Hub</span>
+  </a>
+
+  <h1>Submissões para Review</h1>
+
+  <div class="resumos-grid">
+    {% for resumo in resumos %}
+      <div class="resumo-card">
+        <h2>{{ resumo.titulo }}</h2>
+        <p><strong>Autor:</strong> {{ resumo.autor.username }}</p>
+        <p><strong>Submetido em:</strong> {{ resumo.data_submissao }}</p>
+        <p><strong>Resumo:</strong> {{ resumo.conteudo|truncatewords:20 }}</p>
+        <div class="action-links">
+          <a href="{{ resumo.pdf_file.url }}" class="pdf-link" target="_blank">Ver PDF</a>
+          <a href="{% url 'ver_resumo' resumo.id %}" class="details-link">Ver Detalhes</a>
+        </div>
+      </div>
+    {% empty %}
+      <p class="no-resumos">Ainda não há resumos submetidos!</p>
+    {% endfor %}
+  </div>
+
+</body>
+</html>

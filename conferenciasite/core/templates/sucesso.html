@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Pagamento Bem-Sucedido</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .top-left-logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .top-left-logo img {
+      height: 28px;
+      margin-right: 8px;
+    }
+
+    .top-left-logo span {
+      font-size: 16px;
+      font-weight: 600;
+      color: black;
+    }
+
+    .success-container {
+      max-width: 600px;
+      margin: 120px auto;
+      padding: 30px;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .success-container h1 {
+      color: #28a745;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .success-container p {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .back-button {
+      background-color: #004c8c;
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #00325f;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="top-left-logo">
+    <img src="{% static 'img/logo.png' %}" alt="Logo Conference Hub">
+    <span>Conference Hub</span>
+  </a>
+
+  <div class="success-container">
+    <h1>✅ Pagamento concluído com sucesso!</h1>
+    <p>Obrigado pelo seu registo. Esperamos vê-lo no evento!</p>
+    <a href="/" class="back-button">Voltar ao Menu Inicial</a>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalhes do Resumo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      margin: 20px 12px;
+    }
+
+    .top-left-logo {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .top-left-logo img {
+      height: 24px;
+      margin-right: 6px;
+    }
+
+    .top-left-logo span {
+      font-size: 15px;
+      font-weight: 600;
+      color: black;
+    }
+
+    .resumo-detalhes {
+      max-width: 600px;
+      margin: 60px auto 30px auto;
+      padding: 18px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+
+    .resumo-detalhes h2 {
+      color: #004c8c;
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+
+    .resumo-detalhes p {
+      margin: 8px 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .pdf-link {
+      display: inline-block;
+      margin-top: 8px;
+      background-color: #004c8c;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .pdf-link:hover {
+      background-color: #00325f;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 14px;
+      color: #004c8c;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="top-left-logo">
+    <img src="{% static 'img/logo.png' %}" alt="Logo Conference Hub">
+    <span>Conference Hub</span>
+  </a>
+
+  <div class="resumo-detalhes">
+    <h2>{{ resumo.titulo }}</h2>
+    <p><strong>Autor:</strong> {{ resumo.autor.username }}</p>
+    <p><strong>Data de Submissão:</strong> {{ resumo.data_submissao }}</p>
+    <p><strong>Conteúdo:</strong></p>
+    <p>{{ resumo.conteudo }}</p>
+
+    <p><strong>PDF:</strong> <a href="{{ resumo.pdf_file.url }}" class="pdf-link" target="_blank">📄 Ver PDF</a></p>
+
+    <a href="{% url 'ver_submissoes' %}" class="back-link">← Voltar à lista de resumos</a>
+  </div>
+
+</body>
+</html>

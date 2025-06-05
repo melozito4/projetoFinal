@@ -7,6 +7,8 @@
   <title>Conference Hub</title>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   <script src="{% static 'js/index.js' %}" defer></script>
+  <link rel="icon" type="image/x-icon" href="{% static 'img/logo.png' %}">
+
 </head>
 
 
@@ -27,6 +29,9 @@
       <a href="#registration" class="no-arrow">REGISTRATION</a>
       <a href="#venue" class="no-arrow">VENUE</a>
       <a href="#contact" class="no-arrow">CONTACT</a>
+      {% if user.is_authenticated and user.profile.tipo_utilizador == "Avaliador" %}
+  <a href="{% url 'ver_submissoes' %}" class="no-arrow">REVIEW</a>
+{% endif %}
     </div>
 
     <div class="button-group">
@@ -474,7 +479,12 @@
           their insurances in their country of origin. Conference Secretariat and Organizing Institutions are not able
           to take any responsibility, whatsoever, for injury or damage to people or property during the meeting.
         </p>
-        <button class="register-btn">EVENT REGISTRATION</button>
+        {% if user.is_authenticated %}
+  <a href="{% url 'evento_registo' %}" class="register-btn">EVENT REGISTRATION</a>
+{% else %}
+  <a href="#" class="register-btn" onclick="showLoginAlert(event)">EVENT REGISTRATION</a>
+{% endif %}
+
       </section>
 
       <section class="fees">

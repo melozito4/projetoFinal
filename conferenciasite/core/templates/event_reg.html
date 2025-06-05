@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Inscrição no Evento</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #000;
+    }
+
+    .logo-bar {
+      display: flex;
+      align-items: center;
+      padding: 15px 25px;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo-bar a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-bar img {
+      height: 28px;
+      margin-right: 10px;
+    }
+
+    .logo-bar span {
+      font-size: 18px;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 80px);
+      padding: 20px 10px;
+      background-color: #fff;
+    }
+
+    .form-card {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #000;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 5px;
+      font-size: 13px;
+      color: #111;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 13px;
+      background-color: #fdfdfd;
+      color: #000;
+    }
+
+    .amount {
+      font-weight: 600;
+      color: #000;
+      text-align: center;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .submit-button {
+      background-color: #000;
+      color: white;
+      padding: 10px;
+      font-size: 13px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-button:hover {
+      background-color: #333;
+    }
+
+    @media (max-width: 500px) {
+      .form-card {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-bar">
+    <a href="/">
+      <img src="{% static 'img/logo.png' %}" alt="Logo Conference Hub">
+      <span>Conference Hub</span>
+    </a>
+  </div>
+
+  <div class="main-container">
+    <div class="form-card">
+      <h2>Inscrição no Evento</h2>
+      <form method="POST" action="{% url 'checkout' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input type="tel" id="telefone" name="telefone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="instituicao">Instituição / Empresa</label>
+          <input type="text" id="instituicao" name="instituicao">
+        </div>
+
+        <div class="form-group">
+          <label for="cargo">Cargo / Função</label>
+          <input type="text" id="cargo" name="cargo">
+        </div>
+
+        <div class="form-group">
+          <label for="tipo_registo">Tipo de Registo</label>
+          <select id="tipo_registo" name="tipo_registo" required>
+            <option value="">-- Seleciona --</option>
+            <option value="profissional">Profissional</option>
+            <option value="estudante">Estudante</option>
+            <option value="orador">Orador</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="nif">NIF / Contribuinte</label>
+          <input type="text" id="nif" name="nif">
+        </div>
+
+        <div class="form-group">
+          <label for="morada">Morada para fatura</label>
+          <input type="text" id="morada" name="morada">
+        </div>
+
+        <div class="amount">💳 Total a pagar: 20€</div>
+
+        <button type="submit" class="submit-button">Submeter e Pagar</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

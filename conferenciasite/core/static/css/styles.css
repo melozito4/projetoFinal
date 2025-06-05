@@ -688,3 +688,12 @@ table td small {
 .dropdown-menu.show {
   display: block;
 }
+
+.register-btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 12px 24px;
+}

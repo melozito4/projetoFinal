@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Iniciar Sessão</title>
+  {% load static %}
   <style>
     * {
       margin: 0;
@@ -18,6 +19,27 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+    }
+
+    .top-left-logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      z-index: 999;
+    }
+
+    .top-left-logo img {
+      height: 30px;
+      margin-right: 8px;
+    }
+
+    .top-left-logo span {
+      font-size: 16px;
+      font-weight: 600;
+      color: black;
     }
 
     .login-container {
@@ -103,6 +125,11 @@
   </style>
 </head>
 <body>
+
+  <a href="/" class="top-left-logo">
+    <img src="{% static 'img/logo.png' %}" alt="Logo Conference Hub">
+    <span>Conference Hub</span>
+  </a>
 
   <div class="login-container">
     <h2>Iniciar Sessão</h2>

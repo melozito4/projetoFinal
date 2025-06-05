@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,113 +6,201 @@
   <title>Abstract Submission</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 40px;
-      background-color: #f4f6f9;
+    * {
+      box-sizing: border-box;
     }
 
-    .container {
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #000;
+      overflow: hidden;
+    }
+
+    .logo-bar {
+      position: absolute;
+      top: 15px;
+      left: 25px;
       display: flex;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .logo-bar a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-bar img {
+      height: 28px;
+      margin-right: 8px;
+    }
+
+    .logo-bar span {
+      font-weight: 600;
+      font-size: 16px;
+      color: #000;
+    }
+
+    .wrapper {
+      max-width: 1000px;
+      margin: 70px auto 20px auto;
+      padding: 10px;
+      display: flex;
+      gap: 20px;
       flex-wrap: wrap;
-      gap: 40px;
-      justify-content: center;
+      height: calc(100vh - 90px);
+      overflow-y: auto;
     }
 
     .form-section, .guidelines {
-      flex: 1 1 400px;
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+      flex: 1;
+      background-color: white;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+      min-width: 320px;
+      max-height: 100%;
+      overflow-y: auto;
     }
 
     .form-section h2, .guidelines h2 {
-      color: #004c8c;
-      margin-bottom: 20px;
       text-align: center;
+      color: #000;
+      margin-bottom: 15px;
+      font-size: 18px;
     }
 
-    .form-section input,
-    .form-section textarea {
+    input, textarea, .file-upload input {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0;
+      padding: 8px;
+      margin-bottom: 10px;
       border: 1px solid #ccc;
       border-radius: 6px;
-      font-size: 15px;
-      transition: 0.3s ease;
+      font-size: 13px;
+      background-color: #fdfdfd;
+      color: #000;
     }
 
-    .form-section input:focus,
-    .form-section textarea:focus {
-      outline: none;
-      border-color: #007BFF;
-      box-shadow: 0 0 4px #007BFF33;
-    }
-
-    .form-section textarea {
+    textarea {
       resize: vertical;
-      min-height: 120px;
+      min-height: 80px;
     }
 
     .file-upload {
-      border: 2px dashed #aaa;
-      padding: 30px;
+      border: 2px dashed #bbb;
+      padding: 15px;
       text-align: center;
-      color: #777;
-      background-color: #fafafa;
-      border-radius: 6px;
-      margin: 12px 0;
+      background-color: #f9f9f9;
+      color: #666;
+      border-radius: 8px;
     }
 
-    .form-section button {
-      background-color: #007BFF;
+    .form-section button[type="submit"],
+    .add-coauthor-btn {
+      background-color: #000;
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 10px 14px;
       border-radius: 6px;
       cursor: pointer;
-      width: 100%;
-      font-size: 16px;
+      font-size: 13px;
+      margin: 8px 0 12px 0;
       transition: background-color 0.3s ease;
     }
 
-    .form-section button:hover {
-      background-color: #0056b3;
+    .form-section button[type="submit"]:hover,
+    .add-coauthor-btn:hover {
+      background-color: #333;
+    }
+
+    .coauthor-entry {
+      margin-bottom: 10px;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: red;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: -6px;
     }
 
     ul {
-      padding-left: 20px;
-      line-height: 1.8;
+      line-height: 1.5;
+      font-size: 13px;
     }
 
-    @media (max-width: 768px) {
-      body {
-        padding: 20px;
+    @media (max-width: 1000px) {
+      .wrapper {
+        flex-direction: column;
+        padding: 10px;
+        height: auto;
       }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
+<div class="logo-bar">
+  <a href="/">
+    <img src="{% static 'img/logo.png' %}" alt="Logo">
+    <span>Conference Hub</span>
+  </a>
+</div>
+
+<div class="wrapper">
   <div class="form-section">
     <h2>Submit Your Abstract</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <script>
+          Swal.fire({
+            {% if message.tags == 'success' %}
+              icon: "success",
+            {% else %}
+              icon: "error",
+            {% endif %}
+            title: "{{ message.tags|capfirst }}",
+            text: "{{ message }}",
+            confirmButtonColor: "#000",
+            timer: 3000,
+            timerProgressBar: true
+          });
+        </script>
+      {% endfor %}
+    {% endif %}
+
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <input type="text" name="full_name" placeholder="Full Name" required>
       <input type="email" name="email" placeholder="Email" required>
       <input type="text" name="institution" placeholder="Institution/University/Company" required>
       <input type="text" name="position" placeholder="Position">
-      <textarea name="message" placeholder="Your Message"></textarea>
-      <div class="file-upload">
-        Drag and drop a PDF file or click to upload.
-        <input type="file" name="pdf_file" accept=".pdf" style="margin-top:10px;">
+
+      <div id="coauthors-section">
+        <h3 style="color:#000;">Co-authors</h3>
+        <div class="coauthor-entry">
+          <input type="text" name="coauthor_name[]" placeholder="Co-author Name">
+          <input type="text" name="coauthor_affiliation[]" placeholder="Affiliation">
+          <input type="email" name="coauthor_email[]" placeholder="Email">
+        </div>
       </div>
+      <button type="button" class="add-coauthor-btn" onclick="addCoauthor()">Add Co-author</button>
+
+      <textarea name="message" placeholder="Your Message (optional)"></textarea>
+      <div class="file-upload">
+        Drag & drop a PDF file or click to upload<br>
+        <input type="file" name="pdf_file" accept=".pdf" required>
+      </div>
+
       <button type="submit">Submit Abstract</button>
     </form>
   </div>
@@ -124,32 +211,37 @@
     <ul>
       <li>Title</li>
       <li>Author’s name</li>
-      <li>Author’s affiliation (Institution, City, Country)</li>
+      <li>Author’s affiliation</li>
       <li>Keywords (Up to 6)</li>
       <li>Main Body</li>
       <li>Acknowledgments</li>
       <li>Funding Information</li>
-      <li>References</li>
+      <li>References (APA style)</li>
     </ul>
-    <p><strong>Length:</strong><br>Maximum 3 pages including all sections.</p>
+    <p><strong>Length:</strong> Max 3 pages</p>
     <p><strong>Format:</strong></p>
     <ul>
-      <li>Title centered, bold, Times New Roman 14pt</li>
-      <li>Main text in 12pt TNR, 1.5 spacing</li>
-      <li>A4 page size, standard margins</li>
+      <li>Title: bold, centered, Times New Roman 14pt</li>
+      <li>Text: 12pt TNR, 1.5 spacing, A4</li>
     </ul>
-    <p><strong>Tables and Figures:</strong></p>
-    <ul>
-      <li>Only one per page</li>
-      <li>High-resolution</li>
-    </ul>
-    <p><strong>References:</strong></p>
-    <ul>
-      <li>APA style</li>
-      <li>Only those cited</li>
-    </ul>
+    <p><strong>Figures/Tables:</strong> Max 1 per page, high-res only</p>
   </div>
 </div>
+
+<script>
+  function addCoauthor() {
+    const section = document.getElementById('coauthors-section');
+    const entry = document.createElement('div');
+    entry.className = 'coauthor-entry';
+    entry.innerHTML = `
+      <input type="text" name="coauthor_name[]" placeholder="Co-author Name">
+      <input type="text" name="coauthor_affiliation[]" placeholder="Affiliation">
+      <input type="email" name="coauthor_email[]" placeholder="Email">
+      <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+    `;
+    section.appendChild(entry);
+  }
+</script>
 
 </body>
 </html>
