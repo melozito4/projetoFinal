@@ -22,10 +22,10 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ['originalidade', 'qualidade', 'relevancia', 'clareza', 'comentario', 'decisao']
         widgets = {
-            'originalidade': forms.NumberInput(attrs={'min': 1, 'max': 10}),
-            'qualidade': forms.NumberInput(attrs={'min': 1, 'max': 10}),
-            'relevancia': forms.NumberInput(attrs={'min': 1, 'max': 10}),
-            'clareza': forms.NumberInput(attrs={'min': 1, 'max': 10}),
+            'originalidade': forms.NumberInput(attrs={'min': 1, 'max': 5}),
+            'qualidade': forms.NumberInput(attrs={'min': 1, 'max': 5}),
+            'relevancia': forms.NumberInput(attrs={'min': 1, 'max': 5}),
+            'clareza': forms.NumberInput(attrs={'min': 1, 'max': 5}),
             'comentario': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Comentário profissional...'}),
             'decisao': forms.Select(),
         }
@@ -36,6 +36,6 @@ class ReviewForm(forms.ModelForm):
             value = cleaned_data.get(field)
             if value is None:
                 self.add_error(field, "Este campo é obrigatório.")
-            elif not (1 <= value <= 10):
-                self.add_error(field, "O valor deve estar entre 1 e 10.")
+            elif not (1 <= value <= 5):
+                self.add_error(field, "O valor deve estar entre 1 e 5.")
         return cleaned_data
