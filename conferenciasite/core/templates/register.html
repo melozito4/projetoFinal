@@ -81,6 +81,16 @@
       outline: none;
     }
 
+    .password-requirements {
+  font-size: 13px;
+  color: #555;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  padding-left: 2px;
+  line-height: 1.4;
+}
+
+
     .register-btn {
       width: 100%;
       padding: 12px;
@@ -157,7 +167,16 @@
 
       <div class="form-group">
         {{ form.password1.label_tag }}
-        {{ form.password1 }}
+        <input type="password" name="password1" required
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+               title="A password deve conter pelo menos 8 caracteres, uma letra maiúscula, uma minúscula e um número."
+               class="password-input">
+        <div class="password-requirements">
+          Deve conter pelo menos 8 caracteres, incluindo:<br>
+          - 1 letra maiúscula<br>
+          - 1 letra minúscula<br>
+          - 1 número
+        </div>
         {{ form.password1.errors }}
       </div>
 

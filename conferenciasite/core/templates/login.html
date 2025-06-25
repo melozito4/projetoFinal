@@ -122,6 +122,21 @@
       font-size: 14px;
       text-align: center;
     }
+
+    .forgot-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .forgot-link a {
+      font-size: 13px;
+      color: #2c3e50;
+      text-decoration: none;
+    }
+
+    .forgot-link a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -151,6 +166,10 @@
 
       <button type="submit" class="login-btn">Entrar</button>
     </form>
+
+    <div class="forgot-link">
+      <a href="{% url 'password_reset' %}">Esqueceste-te da password?</a>
+    </div>
 
     <div class="register-link">
       Ainda não tens conta? <a href="{% url 'register' %}">Regista-te aqui</a>
