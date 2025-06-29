@@ -12,6 +12,15 @@ from .utils import gerar_fatura_pdf
 import stripe
 from .forms import ReviewForm
 from .models import Review
+from .models import Atribuicao, SubmissaoResumo, Review, Profile
+from .utils import gerar_token_verificacao
+from django.core.mail import send_mail
+from django.urls import reverse
+from django.contrib.auth.models import User
+from .utils import verificar_token
+from django.shortcuts import render
+from django.contrib.auth import authenticate
+from django.shortcuts import render
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -36,9 +45,16 @@ def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('index')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                if not user.profile.email_verificado:
+                    form.add_error(None, "Por favor verifica o teu email antes de fazer login.")
+                else:
+                    login(request, user)
+                    return redirect('index')
     else:
         form = AuthenticationForm()
 
@@ -54,12 +70,26 @@ def register_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, 'Registro realizado com sucesso! Faça login para continuar.')
+
+            # Gerar token
+            token = gerar_token_verificacao(user.email)
+            url = request.build_absolute_uri(reverse('verificar_email') + f'?token={token}')
+
+            # Enviar email
+            send_mail(
+                'Verificação de Email - Conference Hub',
+                f'Olá {user.username}, por favor verifica o teu email clicando no link:\n\n{url}',
+                'conference@example.com',
+                [user.email],
+                fail_silently=False,
+            )
+
+            messages.success(request, 'Conta criada. Verifica o teu email para ativá-la.')
             return redirect('login')
     else:
         form = CustomUserCreationForm()
-
     return render(request, 'register.html', {'form': form})
+
 
 @login_required
 def submit_abstract(request):
@@ -91,7 +121,10 @@ def is_avaliador(user):
 @login_required
 @user_passes_test(is_avaliador)
 def ver_submissoes(request):
-    resumos = SubmissaoResumo.objects.all().order_by('-data_submissao')
+    resumos = SubmissaoResumo.objects.filter(
+        atribuicoes__avaliador=request.user,
+        status_final='pendente'
+    ).order_by('-data_submissao').distinct()
     return render(request, 'review.html', {'resumos': resumos})
 
 @login_required
@@ -102,7 +135,34 @@ def evento_registo_view(request):
 @user_passes_test(is_avaliador)
 def ver_resumo(request, resumo_id):
     resumo = get_object_or_404(SubmissaoResumo, pk=resumo_id)
-    return render(request, 'ver_resumo.html', {'resumo': resumo})
+
+    # Verificar se o resumo foi atribuído a este avaliador
+    if not Atribuicao.objects.filter(resumo=resumo, avaliador=request.user).exists():
+        messages.error(request, 'Não tens permissão para aceder a este resumo.')
+        return redirect('ver_submissoes')
+
+    review_existente = Review.objects.filter(resumo=resumo, avaliador=request.user).first()
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review_existente)
+        if form.is_valid():
+            nova_review = form.save(commit=False)
+            nova_review.resumo = resumo
+            nova_review.avaliador = request.user
+            nova_review.save()
+            messages.success(request, 'Avaliação submetida com sucesso.')
+            return redirect('ver_resumo', resumo_id=resumo.id)
+    else:
+        form = ReviewForm(instance=review_existente)
+
+    todas_reviews = Review.objects.filter(resumo=resumo)
+
+    return render(request, 'ver_resumo.html', {
+        'resumo': resumo,
+        'form': form,
+        'todas_reviews': todas_reviews,
+        'review_existente': review_existente,
+    })
 
 @csrf_exempt
 @login_required
@@ -133,7 +193,7 @@ def checkout(request):
             line_items=[{
                 'price_data': {
                     'currency': 'eur',
-                    'unit_amount': 2000,
+                    'unit_amount': 4999,
                     'product_data': {
                         'name': 'Inscrição no Evento',
                     },
@@ -176,30 +236,19 @@ def pagamento_sucesso(request):
 
     return render(request, 'sucesso.html')
 
+def verificar_email(request):
+    token = request.GET.get('token')
+    email = verificar_token(token)
+    if email:
+        try:
+            user = User.objects.get(email=email)
+            user.profile.email_verificado = True
+            user.profile.save()
+            return render(request, 'email_verificado.html')  # Cria este template
+        except User.DoesNotExist:
+            pass
+    return render(request, 'verificacao_falhou.html')  # Cria este também
 
-@login_required
-@user_passes_test(is_avaliador)
-def ver_resumo(request, resumo_id):
-    resumo = get_object_or_404(SubmissaoResumo, pk=resumo_id)
-    review_existente = Review.objects.filter(resumo=resumo, avaliador=request.user).first()
-
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, instance=review_existente)
-        if form.is_valid():
-            nova_review = form.save(commit=False)
-            nova_review.resumo = resumo
-            nova_review.avaliador = request.user
-            nova_review.save()
-            messages.success(request, 'Avaliação submetida com sucesso.')
-            return redirect('ver_resumo', resumo_id=resumo.id)
-    else:
-        form = ReviewForm(instance=review_existente)
-
-    todas_reviews = Review.objects.filter(resumo=resumo)
-
-    return render(request, 'ver_resumo.html', {
-        'resumo': resumo,
-        'form': form,
-        'todas_reviews': todas_reviews,
-        'review_existente': review_existente,
-    })
+def resumos_aceites(request):
+    resumos = SubmissaoResumo.objects.filter(status_final='aceite')
+    return render(request, 'resumos_aceites.html', {'resumos': resumos})

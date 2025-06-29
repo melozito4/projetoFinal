@@ -8,6 +8,8 @@ from reportlab.platypus import Paragraph, Table, TableStyle, Spacer, SimpleDocTe
 from datetime import datetime
 import os
 from django.conf import settings
+from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
+
 
 def gerar_fatura_pdf(inscricao):
     buffer = BytesIO()
@@ -18,7 +20,7 @@ def gerar_fatura_pdf(inscricao):
     estilo_normal = styles['Normal']
 
     # Topo com Fatura e Logo alinhado
-    caminho_logo = os.path.join(settings.STATICFILES_DIRS[0], "img", "logo3.png")
+    caminho_logo = os.path.join(settings.STATICFILES_DIRS[0], "img", "logo.png")
     logo = Image(caminho_logo, width=40, height=40)
     header_data = [
         [
@@ -88,3 +90,15 @@ def gerar_fatura_pdf(inscricao):
     doc.build(elementos)
     buffer.seek(0)
     return buffer
+
+signer = TimestampSigner()
+
+def gerar_token_verificacao(email):
+    return signer.sign(email)
+
+def verificar_token(token, max_age=60*60*24):  # 24 horas
+    try:
+        email = signer.unsign(token, max_age=max_age)
+        return email
+    except (BadSignature, SignatureExpired):
+        return None

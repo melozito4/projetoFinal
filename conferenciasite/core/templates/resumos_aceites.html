@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>Resumos Aceites</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="{% static 'img/logo.png' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #000;
+    }
+
+    .logo-bar {
+      position: absolute;
+      top: 15px;
+      left: 25px;
+      display: flex;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .logo-bar a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-bar img {
+      height: 28px;
+      margin-right: 8px;
+    }
+
+    .logo-bar span {
+      font-weight: 600;
+      font-size: 16px;
+      color: #000;
+    }
+
+    .wrapper {
+      max-width: 1000px;
+      margin: 80px auto 30px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #000000;
+      margin-bottom: 30px;
+      font-size: 22px;
+    }
+
+    .resumo-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border-left: 4px solid #000000;
+    }
+
+    .resumo-card h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #1a2533;
+    }
+
+    .resumo-card a {
+      text-decoration: none;
+      color: #1a2533;
+    }
+
+    .resumo-card p {
+      font-size: 14px;
+      color: #444;
+    }
+
+    .resumo-card small {
+      color: #777;
+    }
+
+    @media (max-width: 768px) {
+      .wrapper {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="logo-bar">
+  <a href="/">
+    <img src="{% static 'img/logo.png' %}" alt="Logo">
+    <span>Conference Hub</span>
+  </a>
+</div>
+
+<div class="wrapper">
+  <h1>Resumos Aceites</h1>
+
+  {% if resumos %}
+    {% for resumo in resumos %}
+      <div class="resumo-card">
+        <h2>
+          <a href="{{ resumo.pdf_file.url }}" target="_blank">{{ resumo.titulo }}</a>
+        </h2>
+        <p>{{ resumo.conteudo|linebreaksbr }}</p>
+        <small>Autor: {{ resumo.autor.get_full_name|default:resumo.autor.username }}</small>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p style="text-align: center;">Ainda não há resumos aceites.</p>
+  {% endif %}
+</div>
+
+</body>
+</html>

@@ -11,5 +11,7 @@ urlpatterns = [
     path('review/<int:resumo_id>/', views.ver_resumo, name='ver_resumo'),
     path('checkout/', views.checkout, name='checkout'),
     path('sucesso/', views.pagamento_sucesso, name='pagamento_sucesso'),
+    path('verificar-email/', views.verificar_email, name='verificar_email'),
+    path('resumos_aceites/', views.resumos_aceites, name='resumos_aceites'),
     path('evento/', views.evento_registo_view, name='evento_registo')
 ]

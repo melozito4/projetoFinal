@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+     
+  <meta charset="UTF-8">
+  <title>Email Verificado</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 15px;
+      color: #555;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>✅ Email verificado com sucesso!</h2>
+    <p>Podes agora iniciar sessão na tua conta.</p>
+    <a href="{% url 'login' %}">Ir para o login</a>
+  </div>
+</body>
+</html>
