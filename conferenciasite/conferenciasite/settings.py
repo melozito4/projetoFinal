@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-key'
 DEBUG = True
-ALLOWED_HOSTS = ['conferencehub.site', 'www.conferencehub.site']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -80,6 +80,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [ BASE_DIR / "core" / "static" ]
 
 
@@ -104,3 +105,24 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'conference.site2025@gmail.com'
 EMAIL_HOST_PASSWORD = 'gqjgtuhktkwvsjhl'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+import os
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'django_error.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
